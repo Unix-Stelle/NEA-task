@@ -22,7 +22,7 @@ int    i;
 string Show_Score;
 string Add_User;
 
-// * Pre-made structure for name and score
+// * Pre-made structure for name and scores
 
 struct Player {
     string name;
