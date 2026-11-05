@@ -9,7 +9,7 @@
 
 using namespace std;
 
-const string SCORES_FILE = "C:/Users/22.o.mozer/OneDrive - The King's School Grantham/School Work/Year 10/Computing/Dice Game/ascores.txt";
+const string SCORES_FILE = "C:/Users/22.o.mozer/OneDrive - The King's School Grantham/School Work/GCSE/Computing/Dice Game/main/scores.txt";
 const int    NUM_PLAYERS = 2;
 const int    NUM_ROUNDS = 5;
 const int    MAX_ATTEMPTS = 3;
@@ -22,10 +22,14 @@ int    i;
 string Show_Score;
 string Add_User;
 
+// * Pre-made structure for name and score
+
 struct Player {
     string name;
     int score = 0;
 };
+
+// * 2 player login, checks if player is inside the "unordered_map" (similar to Python dictionary)
 
 bool twoLogin(Player players[]) {
     string username;
@@ -77,7 +81,7 @@ bool twoLogin(Player players[]) {
                 cout << "User " << (i + 1) << ": Granted" << endl;
                 players[i].name = username;
                 granted = true;
-                break; // stop trying once login succeeds
+                break; // * stop trying once login succeeds
             }
             else {
                 cout << "User " << (i + 1) << ": Denied (attempt " << attempt << " of " << MAX_ATTEMPTS << ")" << endl;
@@ -92,6 +96,8 @@ bool twoLogin(Player players[]) {
 
     return true;
 }
+
+// * mt19937 is the random library, this one being fully random, with the other random library being biased
 
 void playRound(mt19937& gen, uniform_int_distribution<int>& distrib, Player& player, int roundNum) {
     int die1 = distrib(gen);
@@ -124,9 +130,8 @@ void playRound(mt19937& gen, uniform_int_distribution<int>& distrib, Player& pla
     cout << " -> Score so far: " << player.score << endl;
 }
 
-void SignUp() {
 
-}
+// * This is the actual roll function, showing 
 
 void rollFunc(Player players[]) {
     random_device rd;
@@ -147,6 +152,7 @@ void rollFunc(Player players[]) {
 }
 
 // * Appends the winner's name and score to the external scores file.
+
 void saveWinner(const string& name, int score) {
     ofstream outFile(SCORES_FILE, ios::app);
     if (outFile.is_open()) {
@@ -156,6 +162,8 @@ void saveWinner(const string& name, int score) {
         cout << "Warning: could not open " << SCORES_FILE << " to save the result." << endl;
     }
 }
+
+// * Reads file and displays top scores
 
 void displayTopScores() {
 
@@ -200,6 +208,8 @@ void displayTopScores() {
         cout << "Cool, see ya!";
     }
 }
+
+// * Runs all the code!
 
 int main() {
     Player players[NUM_PLAYERS];
